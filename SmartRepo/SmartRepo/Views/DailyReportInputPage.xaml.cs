@@ -8,9 +8,12 @@ using Xamarin.Forms;
 
 namespace Softentertainer.SmartRepo.Views
 {
-    public partial class InputReportPage : ContentPage
+    /// <summary>
+    /// 報告書入力画面のビュー
+    /// </summary>
+    public partial class DailyReportInputPage : ContentPage
     {
-        public InputReportPage()
+        public DailyReportInputPage()
         {
             InitializeComponent();
         }

@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
 
-namespace Softentertainer.SmartRepo
+namespace Softentertainer.SmartRepo.Views
 {
-    public partial class MainPage : ContentPage
+    /// <summary>
+    /// 報告書選択画面のビュー
+    /// </summary>
+    public partial class ReportSelectPage : ContentPage
     {
-        public MainPage()
+        public ReportSelectPage()
         {
             InitializeComponent();
         }
