@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("SmartRepo.Droid.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Softentertainer.SmartRepo.Droid.Resource", IsApplication=true)]
 
-namespace SmartRepo.Droid
+namespace Softentertainer.SmartRepo.Droid
 {
 	
 	
@@ -26,7 +26,7 @@ namespace SmartRepo.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::SmartRepo.Droid.Resource.Attribute.actionBarSize;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::Softentertainer.SmartRepo.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation

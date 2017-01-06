@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace SmartRepo.iOS
+namespace Softentertainer.SmartRepo.iOS
 {
     public class Application
     {

@@ -5,7 +5,7 @@ using System.Text;
 
 using Xamarin.Forms;
 
-namespace SmartRepo
+namespace Softentertainer.SmartRepo
 {
     public partial class App : Application
     {

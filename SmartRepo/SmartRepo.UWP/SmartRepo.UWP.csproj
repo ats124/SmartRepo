@@ -7,7 +7,7 @@
     <ProjectGuid>{238964BA-D4FE-43B8-A7DD-7DCE8279AC2B}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SmartRepo.UWP</RootNamespace>
+    <RootNamespace>Softentertainer.SmartRepo.UWP</RootNamespace>
     <AssemblyName>SmartRepo.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>

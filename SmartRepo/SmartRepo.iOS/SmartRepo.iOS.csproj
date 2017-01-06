@@ -8,7 +8,7 @@
     <ProjectGuid>{DF2EF0AE-0A66-4C66-B75F-1A62FCF61F9D}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>SmartRepo.iOS</RootNamespace>
+    <RootNamespace>Softentertainer.SmartRepo.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>SmartRepo.iOS</AssemblyName>
     <NuGetPackageImportStamp>

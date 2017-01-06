@@ -8,7 +8,7 @@
     <ProjectGuid>{47ACC818-A0BC-40EB-95F6-549901B59E67}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SmartRepo</RootNamespace>
+    <RootNamespace>Softentertainer.SmartRepo</RootNamespace>
     <AssemblyName>SmartRepo</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
