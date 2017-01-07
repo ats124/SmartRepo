@@ -15,7 +15,7 @@ namespace Softentertainer.SmartRepo.ViewModels
     /// <summary>
     /// 日報確認画面のビューモデル
     /// </summary>
-    public class ReportConfrimPageViewModel : BindableBase, INavigationAware
+    public class ReportConfirmPageViewModel : BindableBase, INavigationAware
     {
         private string message;
         public string Message
@@ -26,7 +26,7 @@ namespace Softentertainer.SmartRepo.ViewModels
 
         public DelegateCommand SendReport { get; }
 
-        public ReportConfrimPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
+        public ReportConfirmPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
             this.SendReport = new DelegateCommand(async () =>
             {

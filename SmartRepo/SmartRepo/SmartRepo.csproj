@@ -37,7 +37,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ReportConfrimPageViewModel.cs" />
+    <Compile Include="ViewModels\ReportConfirmPageViewModel.cs" />
     <Compile Include="ViewModels\ReportSelectPageViewModel.cs" />
     <Compile Include="ViewModels\DailyReportInputPageViewModel.cs" />
     <Compile Include="Views\MainNavigationPage.xaml.cs">
