@@ -10,6 +10,8 @@ using Prism.Services;
 
 namespace Softentertainer.SmartRepo.ViewModels
 {
+    using Views;
+
     /// <summary>
     /// 報告書入力画面のビューモデル
     /// </summary>
@@ -29,15 +31,24 @@ namespace Softentertainer.SmartRepo.ViewModels
             set { SetProperty(ref this.comment, value); }
         }
 
-        private string forward;
-        public string Forward
+        private string nextSchedule;
+        public string NextSchedule
         {
-            get { return this.forward; }
-            set { SetProperty(ref this.forward, value); }
+            get { return this.nextSchedule; }
+            set { SetProperty(ref this.nextSchedule, value); }
         }
+
+        public DelegateCommand ConfirmButton { get; }
 
         public DailyReportInputPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
+            this.ConfirmButton = new DelegateCommand(async () =>
+            {
+                await navigationService.NavigateAsync(nameof(ReportConfirmPage), new NavigationParameters()
+                {
+                    { "Message", $"お疲れ様です。hogehogeです。{Environment.NewLine}{this.Comment}" }
+                });
+            });
         }
     }
 }

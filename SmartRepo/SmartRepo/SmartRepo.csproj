@@ -37,8 +37,15 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ReportConfrimPageViewModel.cs" />
     <Compile Include="ViewModels\ReportSelectPageViewModel.cs" />
     <Compile Include="ViewModels\DailyReportInputPageViewModel.cs" />
+    <Compile Include="Views\MainNavigationPage.xaml.cs">
+      <DependentUpon>MainNavigationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportConfirmPage.xaml.cs">
+      <DependentUpon>ReportConfirmPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ReportSelectPage.xaml.cs">
       <DependentUpon>ReportSelectPage.xaml</DependentUpon>
     </Compile>
@@ -94,6 +101,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ReportSelectPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ReportConfirmPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\MainNavigationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
