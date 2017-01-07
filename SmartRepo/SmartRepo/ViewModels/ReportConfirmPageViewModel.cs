@@ -24,13 +24,13 @@ namespace Softentertainer.SmartRepo.ViewModels
             set { SetProperty(ref this.message, value); }
         }
 
-        public DelegateCommand SendReport { get; }
+        public DelegateCommand SendReportCommand { get; }
 
         public ReportConfirmPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
-            this.SendReport = new DelegateCommand(async () =>
+            this.SendReportCommand = new DelegateCommand(async () =>
             {
-                await pageDialogService.DisplayAlertAsync("報告書", "報告書を送信しました", null);
+                await pageDialogService.DisplayAlertAsync("報告書", "報告書を送信しました", "OK");
             });
         }
 
