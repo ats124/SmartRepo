@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:my="clr-namespace:Softentertainer.SmartRepo.Views"
              x:Class="Softentertainer.SmartRepo.Views.ReportSelectPage">
-  <StackLayout Orientation="Vertical" VerticalOptions="LayoutOptions.Center">
-    <Button Text="日報" Command="{Binding DailyCommand}" />
-    <Button Text="週報" />
-  </StackLayout>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+    <Button Grid.Row="0" Text="日報" Command="{Binding DailyCommand}" />
+    <my:CalendarView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CalendarBackgroundColor="White" CalendarBorderColor="Black" />
+  </Grid>
 </ContentPage>

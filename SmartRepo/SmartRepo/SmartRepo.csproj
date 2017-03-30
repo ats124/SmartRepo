@@ -40,6 +40,9 @@
     <Compile Include="ViewModels\ReportConfirmPageViewModel.cs" />
     <Compile Include="ViewModels\ReportSelectPageViewModel.cs" />
     <Compile Include="ViewModels\DailyReportInputPageViewModel.cs" />
+    <Compile Include="Views\CalendarView.xaml.cs">
+      <DependentUpon>CalendarView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainNavigationPage.xaml.cs">
       <DependentUpon>MainNavigationPage.xaml</DependentUpon>
     </Compile>
@@ -77,6 +80,9 @@
       <HintPath>..\..\packages\Prism.Unity.Forms.6.2.0\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Prism.Unity.Forms.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Interactive, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Interactive.3.1.1\lib\netstandard1.0\System.Interactive.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.3.180\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
       <Private>True</Private>
@@ -113,6 +119,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\MainNavigationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\CalendarView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

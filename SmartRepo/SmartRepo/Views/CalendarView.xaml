@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView x:Name="RootElement" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Softentertainer.SmartRepo.Views.CalendarView">
+  <ContentView.Content>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <Label Grid.Row="0" HorizontalOptions="Start">&lt;&lt;</Label>
+      <Label Grid.Row="0" HorizontalOptions="Center">Test</Label>
+      <Label Grid.Row="0" HorizontalOptions="End">&gt;&gt;</Label>
+      <BoxView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{Binding CalendarBorderColor, Source={x:Reference RootElement}}">
+      </BoxView>
+      <Grid x:Name="CalendarDaysGrid" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  ColumnSpacing="1"  RowSpacing="1" BackgroundColor="{Binding CalendarBorderColor, Source={x:Reference RootElement}}" Margin="1">
+      </Grid>
+    </Grid>
+  </ContentView.Content>
+</ContentView>
