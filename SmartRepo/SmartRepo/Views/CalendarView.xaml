@@ -1,11 +1,23 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView x:Name="RootElement" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Softentertainer.SmartRepo.Views.CalendarView">
+<ContentView x:Name="RootElement" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Class="Softentertainer.SmartRepo.Views.CalendarView">
   <ContentView.Resources>
     <ResourceDictionary>
       <Color x:Key="CalendarBorderColor">Black</Color>
       <x:Double x:Key="CalendarGridSize">0.5</x:Double>
       <Thickness x:Key="CalendarBorderSize">0.5</Thickness>
       <Color x:Key="CalendarBackgroundColor">White</Color>
+      <x:Array x:Key="DayOfWeeks" Type="{x:Type x:String}">
+        <x:String>日</x:String>
+        <x:String>月</x:String>
+        <x:String>火</x:String>
+        <x:String>水</x:String>
+        <x:String>木</x:String>
+        <x:String>金</x:String>
+        <x:String>土</x:String>
+      </x:Array>
+      <Color x:Key="SundayColor">Red</Color>
+      <Color x:Key="SaturdayColor">Blue</Color>
+      <Color x:Key="OutOfRangeDayColor">Gray</Color>
     </ResourceDictionary>
   </ContentView.Resources>
   <ContentView.Content>
@@ -15,7 +27,7 @@
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
       <Label Grid.Row="0" HorizontalOptions="Start">&lt;&lt;</Label>
-      <Label Grid.Row="0" HorizontalOptions="Center">Test</Label>
+      <Label Grid.Row="0" HorizontalOptions="Center" Text="{Binding ViewMonth, Source={x:Reference Name=RootElement}, StringFormat='{0:yyyy/MM}'}}" />
       <Label Grid.Row="0" HorizontalOptions="End">&gt;&gt;</Label>
       <BoxView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CalendarBorderColor}" />
       <Grid x:Name="CalendarDaysGrid" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CalendarBorderColor}" 
