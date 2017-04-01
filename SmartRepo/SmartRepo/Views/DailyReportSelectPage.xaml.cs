@@ -11,9 +11,9 @@ namespace Softentertainer.SmartRepo.Views
     /// <summary>
     /// 報告書選択画面のビュー
     /// </summary>
-    public partial class ReportSelectPage : ContentPage
+    public partial class DailyReportSelectPage : ContentPage
     {
-        public ReportSelectPage()
+        public DailyReportSelectPage()
         {
             InitializeComponent();
         }

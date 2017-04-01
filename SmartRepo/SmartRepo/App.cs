@@ -14,16 +14,16 @@ namespace Softentertainer.SmartRepo
     {
         protected override void RegisterTypes()
         {
-            
             Container.RegisterTypeForNavigation<MainNavigationPage>();
-            Container.RegisterTypeForNavigation<ReportSelectPage>();
+            Container.RegisterTypeForNavigation<MainPage>();
+            Container.RegisterTypeForNavigation<DailyReportSelectPage>();
             Container.RegisterTypeForNavigation<DailyReportInputPage>();
             Container.RegisterTypeForNavigation<ReportConfirmPage>();        
         }
 
         protected override void OnInitialized()
         {
-            NavigationService.NavigateAsync($"{nameof(MainNavigationPage)}/{nameof(ReportSelectPage)}");
+            NavigationService.NavigateAsync($"{nameof(MainNavigationPage)}/{nameof(MainPage)}");
         }
     }
 }

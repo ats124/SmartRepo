@@ -6,10 +6,12 @@
              x:Class="Softentertainer.SmartRepo.Views.DailyReportInputPage">
   <Grid>
     <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <Editor Grid.Row="0" Text="{Binding Comment}" />
-    <Button Grid.Row="1" Text="送信確認" Command="{Binding ConfirmButton}" />
+    <Label Grid.Row="0" Text="{Binding TargetDate, StringFormat='{0:yyyy/MM/dd}'}" />
+    <Editor Grid.Row="1" Text="{Binding Comment}" />
+    <Button Grid.Row="2" Text="送信確認" Command="{Binding ConfirmButton}" />
   </Grid>
 </ContentPage>

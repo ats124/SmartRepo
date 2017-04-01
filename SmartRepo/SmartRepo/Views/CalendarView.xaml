@@ -18,6 +18,7 @@
       <Color x:Key="SundayColor">Red</Color>
       <Color x:Key="SaturdayColor">Blue</Color>
       <Color x:Key="OutOfRangeDayColor">Gray</Color>
+      <Color x:Key="TodayBackgroundColor">Aqua</Color>
     </ResourceDictionary>
   </ContentView.Resources>
   <ContentView.Content>

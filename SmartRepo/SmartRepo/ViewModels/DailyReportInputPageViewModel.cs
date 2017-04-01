@@ -15,8 +15,15 @@ namespace Softentertainer.SmartRepo.ViewModels
     /// <summary>
     /// 報告書入力画面のビューモデル
     /// </summary>
-    public class DailyReportInputPageViewModel : BindableBase
+    public class DailyReportInputPageViewModel : BindableBase, INavigationAware
     {
+        private DateTime targetDate;
+        public DateTime TargetDate
+        {
+            get => this.targetDate;
+            set => SetProperty(ref this.targetDate, value);
+        }
+
         private string mailAddress;
         public string MailAddress
         {
@@ -49,6 +56,19 @@ namespace Softentertainer.SmartRepo.ViewModels
                     { "Message", $"お疲れ様です。hogehogeです。{Environment.NewLine}{this.Comment}" }
                 });
             });
+        }
+
+        public void OnNavigatedFrom(NavigationParameters parameters)
+        {
+        }
+
+        public void OnNavigatedTo(NavigationParameters parameters)
+        {
+        }
+
+        public void OnNavigatingTo(NavigationParameters parameters)
+        {
+            this.TargetDate = (DateTime)parameters["Date"];
         }
     }
 }

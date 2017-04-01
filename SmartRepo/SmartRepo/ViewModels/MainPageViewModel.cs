@@ -15,17 +15,15 @@ namespace Softentertainer.SmartRepo.ViewModels
     /// <summary>
     /// 報告書選択画面のビューモデル
     /// </summary>
-    public class ReportSelectPageViewModel : BindableBase
+    public class MainPageViewModel : BindableBase
     {
-        public DelegateCommand DailyCommand { get; }
+        public DelegateCommand<string> NavigationCommand { get; }
 
-        public DelegateCommand WeeklyCommand { get; }
-
-        public ReportSelectPageViewModel(INavigationService navigationService)
+        public MainPageViewModel(INavigationService navigationService)
         {
-            this.DailyCommand = new DelegateCommand(async () =>
+            this.NavigationCommand = new DelegateCommand<string>(async param =>
             {
-                await navigationService.NavigateAsync(nameof(DailyReportInputPage));
+                await navigationService.NavigateAsync(param);
             });
         }
     }

@@ -4,13 +4,20 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:my="clr-namespace:Softentertainer.SmartRepo.Views"
-             x:Class="Softentertainer.SmartRepo.Views.ReportSelectPage">
+             x:Class="Softentertainer.SmartRepo.Views.DailyReportSelectPage"
+             Title="日報選択">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <DataTemplate x:Key="CalendarItemTemplate">
+        <Label>Test</Label>
+      </DataTemplate>
+    </ResourceDictionary>
+  </ContentPage.Resources>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <Button Grid.Row="0" Text="日報" Command="{Binding DailyCommand}" />
-    <my:CalendarView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+    <my:CalendarView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CalendarItemTemplate="{StaticResource CalendarItemTemplate}" CalendarItemCommand="{Binding CalendarItemCommand}" />
   </Grid>
 </ContentPage>
