@@ -11,6 +11,6 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <Button Grid.Row="0" Text="日報" Command="{Binding DailyCommand}" />
-    <my:CalendarView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CalendarBackgroundColor="White" CalendarBorderColor="Black" />
+    <my:CalendarView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
   </Grid>
 </ContentPage>
