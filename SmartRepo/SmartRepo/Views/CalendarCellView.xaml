@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Softentertainer.SmartRepo.Views.CalendarCellView">
+  <ContentView.Content>
+    <Grid HorizontalOptions="Fill" VerticalOptions="Fill">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <Label Grid.Row="0" HorizontalOptions="End" Text="{Binding Date, StringFormat='{0:dd}'}" />
+    </Grid>
+  </ContentView.Content>
+</ContentView>
