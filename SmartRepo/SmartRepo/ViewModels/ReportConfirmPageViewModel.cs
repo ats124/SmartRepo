@@ -42,5 +42,9 @@ namespace Softentertainer.SmartRepo.ViewModels
         {
             this.Message = (string)parameters["Message"];
         }
+
+        public void OnNavigatingTo(NavigationParameters parameters)
+        {
+        }
     }
 }

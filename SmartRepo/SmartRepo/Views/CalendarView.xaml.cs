@@ -48,6 +48,16 @@ namespace Softentertainer.SmartRepo.Views
             set => this.SetValue(CalendarBackgroundColorProperty, value);
         }
 
+        public static readonly BindableProperty CalendarTargetMonthProperty = BindableProperty.Create(
+            "BorderColor",
+            typeof(Color),
+            typeof(CalendarView),
+            Color.White,
+            BindingMode.TwoWay,
+            null,
+            null,
+            null);
+
         public CalendarView()
         {
             InitializeComponent();
