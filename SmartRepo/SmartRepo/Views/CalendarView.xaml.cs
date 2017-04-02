@@ -37,8 +37,8 @@ namespace Softentertainer.SmartRepo.Views
         /// </summary>
         public IDictionary<DateTime, object> CalendarItemsSource
         {
-            get => (IDictionary<DateTime, object>)this.GetValue(CalendarItemsSourceProperty);
-            set => this.SetValue(CalendarItemsSourceProperty, value);
+			get { return (IDictionary<DateTime, object>)this.GetValue(CalendarItemsSourceProperty); }
+			set { this.SetValue(CalendarItemsSourceProperty, value); }
         }
 
         /// <summary>
@@ -46,8 +46,8 @@ namespace Softentertainer.SmartRepo.Views
         /// </summary>
         public DataTemplate CalendarItemTemplate
         {
-            get => (DataTemplate)this.GetValue(CalendarItemTemplateProperty);
-            set => this.SetValue(CalendarItemTemplateProperty, value);
+			get { return (DataTemplate)this.GetValue(CalendarItemTemplateProperty); }
+			set { this.SetValue(CalendarItemTemplateProperty, value); }
         }
 
         /// <summary>
@@ -55,8 +55,8 @@ namespace Softentertainer.SmartRepo.Views
         /// </summary>
         public DateTime ViewMonth
         {
-            get => (DateTime)this.GetValue(ViewMonthProperty);
-            set => this.SetValue(ViewMonthProperty, new DateTime(value.Year, value.Month, 1));
+			get { return (DateTime)this.GetValue(ViewMonthProperty); }
+			set { this.SetValue(ViewMonthProperty, new DateTime(value.Year, value.Month, 1)); }
         }
 
         /// <summary>
@@ -64,8 +64,8 @@ namespace Softentertainer.SmartRepo.Views
         /// </summary>
         public ICommand CalendarItemCommand
         {
-            get => (ICommand)this.GetValue(CalendarItemCommandProperty);
-            set => this.SetValue(CalendarItemsSourceProperty, value);
+			get { return (ICommand)this.GetValue(CalendarItemCommandProperty); }
+			set { this.SetValue(CalendarItemsSourceProperty, value); }
         }
 
         private readonly Color calendarBackgroundColor;
@@ -75,7 +75,7 @@ namespace Softentertainer.SmartRepo.Views
         private readonly Color todayBackgroundColor;
         private readonly string[] dayOfWeekStrings;
 
-        private readonly List<(Grid DayGrid, Label DayLabel, ContentView DayContent)> dayElements;
+        private readonly List<Tuple<Grid, Label, ContentView>> dayElements;
 
         public CalendarView()
         {
@@ -123,8 +123,9 @@ namespace Softentertainer.SmartRepo.Views
             var calendarDayToColorConverter = 
                 new DelegateValueConverter((value, targetType, parameter, culture) =>
                 {
-                    if (value is DateTime date)
+                    if (value is DateTime)
                     {
+						var date = (DateTime)value;
                         return date.Month == this.ViewMonth.Month
                             ? date.DayOfWeek == DayOfWeek.Sunday
                                 ? this.sundayColor
@@ -140,9 +141,15 @@ namespace Softentertainer.SmartRepo.Views
             var calendarDayToBackgroundColor =
                 new DelegateValueConverter((value, targetType, parameter, culture) =>
                 {
-                    return value is DateTime date && date == DateTime.Today
-                        ? this.todayBackgroundColor
-                        : this.calendarBackgroundColor;
+					if (value is DateTime)
+					{
+						var date = (DateTime)value;
+                        if (date == DateTime.Today)
+                        {
+                            return this.todayBackgroundColor;
+                        }
+					}
+					return this.calendarBackgroundColor;
                 });
 
             // カレンダーセルのタップ
@@ -150,7 +157,7 @@ namespace Softentertainer.SmartRepo.Views
             gr.Tapped += CalendarDayGridCell_Tapped;
 
             // 日付グリッド内に日付ラベル
-            this.dayElements = new List<(Grid DayGrid, Label DayLabel, ContentView DayContent)>();
+            this.dayElements = new List<Tuple<Grid, Label, ContentView>>();
             Enumerable.Range(0, 6).ForEach(row =>
                 Enumerable.Range(0, 7).ForEach(col =>
                 {
@@ -187,7 +194,7 @@ namespace Softentertainer.SmartRepo.Views
                     Grid.SetRow(content, 1);
                     grid.Children.Add(content);
 
-                    this.dayElements.Add((grid, label, content));
+                    this.dayElements.Add(Tuple.Create(grid, label, content));
                 }));
 
             RefreshCalendarCells(true, true, true);
@@ -226,13 +233,13 @@ namespace Softentertainer.SmartRepo.Views
                 // 日付
                 if (isRefreshDay)
                 {
-                    dayElement.DayGrid.BindingContext = date;
+                    dayElement.Item1.BindingContext = date;
                 }
 
                 // コンテンツのテンプレート
                 if (isRefreshTemplate)
                 {
-                    dayElement.DayContent.Content = this.CalendarItemTemplate?.CreateContent() as View;
+                    dayElement.Item3.Content = this.CalendarItemTemplate?.CreateContent() as View;
                 }
 
                 // データバインド
@@ -240,7 +247,7 @@ namespace Softentertainer.SmartRepo.Views
                 {
                     object data = null;
                     this.CalendarItemsSource?.TryGetValue(date, out data);
-                    dayElement.DayContent.BindingContext = data;
+                    dayElement.Item3.BindingContext = data;
                 }
             });
         }

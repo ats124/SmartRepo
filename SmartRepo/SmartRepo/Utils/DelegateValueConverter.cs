@@ -24,16 +24,14 @@ namespace Softentertainer.SmartRepo.Utils
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return this.convertFunc != null 
-                ? this.convertFunc(value, targetType, parameter, culture) 
-                : throw new NotImplementedException();
+			if (this.convertFunc == null) throw new InvalidOperationException();
+			return this.convertFunc(value, targetType, parameter, culture);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return this.convertBackFunc != null
-                ? this.convertBackFunc(value, targetType, parameter, culture)
-                : throw new NotImplementedException();
+			if (this.convertBackFunc == null) throw new InvalidOperationException();
+			return this.convertBackFunc(value, targetType, parameter, culture);
         }
     }
 }

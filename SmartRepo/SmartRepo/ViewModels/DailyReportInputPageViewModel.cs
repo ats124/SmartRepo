@@ -20,8 +20,8 @@ namespace Softentertainer.SmartRepo.ViewModels
         private DateTime targetDate;
         public DateTime TargetDate
         {
-            get => this.targetDate;
-            set => SetProperty(ref this.targetDate, value);
+			get { return this.targetDate; }
+			set { SetProperty(ref this.targetDate, value); }
         }
 
         private string mailAddress;

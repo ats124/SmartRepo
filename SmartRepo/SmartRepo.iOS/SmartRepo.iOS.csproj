@@ -162,7 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmartRepo\SmartRepo.csproj">
-      <Project>{39eb982a-8729-4107-9ec7-b55dcf54e3fe}</Project>
+      <Project>{47ACC818-A0BC-40EB-95F6-549901B59E67}</Project>
       <Name>SmartRepo</Name>
     </ProjectReference>
   </ItemGroup>
