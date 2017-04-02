@@ -25,6 +25,8 @@
       <Color x:Key="SaturdayColor">Blue</Color>
       <Color x:Key="OutOfRangeDayColor">Gray</Color>
       <Color x:Key="TodayBackgroundColor">Aqua</Color>
+      <Style x:Key="LinkButtonStyle" TargetType="Button">
+      </Style>
     </ResourceDictionary>
   </ContentView.Resources>
   <ContentView.Content>
@@ -33,9 +35,9 @@
         <RowDefinition Height="Auto" />
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
-      <Button Grid.Row="0" HorizontalOptions="Start" Text="&lt;&lt;"  />
-      <Label Grid.Row="0" HorizontalOptions="Center" Text="{Binding ViewMonth, Source={x:Reference Name=RootElement}, StringFormat='{0:yyyy/MM}'}}" />
-      <Button Grid.Row="0" HorizontalOptions="End" Text="&gt;&gt;" />
+      <Button Grid.Row="0" HorizontalOptions="Start" Text="&lt;&lt;" Style="{StaticResource LinkButtonStyle}" Clicked="ViewMonthPreviousButton_Clicked" />
+      <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding ViewMonth, Source={x:Reference Name=RootElement}, StringFormat='{0:yyyy/MM}'}}" />
+      <Button Grid.Row="0" HorizontalOptions="End" Text="&gt;&gt;" Style="{StaticResource LinkButtonStyle}" Clicked="ViewMonthNextButton_Clicked" />
       <BoxView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CalendarBorderColor}" />
       <Grid x:Name="CalendarDaysGrid" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CalendarBorderColor}" 
             ColumnSpacing="{StaticResource CalendarGridSize}" RowSpacing="{StaticResource CalendarGridSize}" Margin="{StaticResource CalendarBorderSize}"/>

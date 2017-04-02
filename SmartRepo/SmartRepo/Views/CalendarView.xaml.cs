@@ -202,6 +202,16 @@ namespace Softentertainer.SmartRepo.Views
             }
         }
 
+        private void ViewMonthPreviousButton_Clicked(object sender, EventArgs e)
+        {
+            this.ViewMonth = this.ViewMonth.AddMonths(-1);
+        }
+
+        private void ViewMonthNextButton_Clicked(object sender, EventArgs e)
+        {
+            this.ViewMonth = this.ViewMonth.AddMonths(1);
+        }
+
         private void RefreshCalendarCells(bool isRefreshDay = false, bool isRefreshTemplate = false, bool isRefreshSource = false)
         {
             // カレンダーの先頭日付(日曜日から始める)を取得する
