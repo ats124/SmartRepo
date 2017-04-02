@@ -3,8 +3,14 @@
   <ContentView.Resources>
     <ResourceDictionary>
       <Color x:Key="CalendarBorderColor">Black</Color>
-      <x:Double x:Key="CalendarGridSize">0.5</x:Double>
-      <Thickness x:Key="CalendarBorderSize">0.5</Thickness>
+      <OnPlatform x:TypeArguments="x:Double" x:Key="CalendarGridSize">
+        <OnPlatform.iOS>0.5</OnPlatform.iOS>
+        <OnPlatform.Android>1</OnPlatform.Android>
+      </OnPlatform>
+      <OnPlatform x:TypeArguments="Thickness" x:Key="CalendarBorderSize">
+        <OnPlatform.iOS>0.5</OnPlatform.iOS>
+        <OnPlatform.Android>1</OnPlatform.Android>
+      </OnPlatform>
       <Color x:Key="CalendarBackgroundColor">White</Color>
       <x:Array x:Key="DayOfWeeks" Type="{x:Type x:String}">
         <x:String>日</x:String>
@@ -27,9 +33,9 @@
         <RowDefinition Height="Auto" />
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
-      <Label Grid.Row="0" HorizontalOptions="Start">&lt;&lt;</Label>
+      <Button Grid.Row="0" HorizontalOptions="Start" Text="&lt;&lt;"  />
       <Label Grid.Row="0" HorizontalOptions="Center" Text="{Binding ViewMonth, Source={x:Reference Name=RootElement}, StringFormat='{0:yyyy/MM}'}}" />
-      <Label Grid.Row="0" HorizontalOptions="End">&gt;&gt;</Label>
+      <Button Grid.Row="0" HorizontalOptions="End" Text="&gt;&gt;" />
       <BoxView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CalendarBorderColor}" />
       <Grid x:Name="CalendarDaysGrid" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CalendarBorderColor}" 
             ColumnSpacing="{StaticResource CalendarGridSize}" RowSpacing="{StaticResource CalendarGridSize}" Margin="{StaticResource CalendarBorderSize}"/>
