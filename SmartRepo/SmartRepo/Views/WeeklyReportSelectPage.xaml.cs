@@ -14,9 +14,9 @@ namespace Softentertainer.SmartRepo.Views
 {
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : TabbedPage
+    public partial class WeeklyReportSelectPage : ContentPage
     {
-        public MainPage()
+        public WeeklyReportSelectPage()
         {
             InitializeComponent();
         }

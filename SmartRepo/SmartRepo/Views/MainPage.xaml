@@ -1,13 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:my="clr-namespace:Softentertainer.SmartRepo.Views"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Softentertainer.SmartRepo.Views.MainPage"
              Title="メニュー">
-  <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-    <Button Text="日報" Command="{Binding NavigationCommand}" CommandParameter="DailyReportSelectPage"/>
-    <Button Text="週報" Command="{Binding NavigationCommand}" CommandParameter="MonthlyReportSelectPage"/>
-    <Button Text="設定" Command="{Binding NavigationCommand}" CommandParameter="SettingPage"/>
-  </StackLayout>
-</ContentPage>
+  <NavigationPage Title="日報">
+    <x:Arguments>
+      <my:DailyReportSelectPage />
+    </x:Arguments>
+  </NavigationPage>
+  <NavigationPage Title="週報">
+    <x:Arguments>
+      <my:WeeklyReportSelectPage />
+    </x:Arguments>
+  </NavigationPage>
+  <NavigationPage Title="設定">
+    <x:Arguments>
+      <my:SettingPage />
+    </x:Arguments>
+  </NavigationPage>
+</TabbedPage>
