@@ -7,6 +7,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
+using Plugin.Messaging;
 
 namespace Softentertainer.SmartRepo.ViewModels
 {
@@ -17,6 +18,13 @@ namespace Softentertainer.SmartRepo.ViewModels
     /// </summary>
     public class ReportConfirmPageViewModel : BindableBase, INavigationAware
     {
+        private string subject;
+        public string Subject
+        {
+            get { return this.subject; }
+            set { SetProperty(ref this.subject, value); }
+        }
+
         private string message;
         public string Message
         {
@@ -30,7 +38,20 @@ namespace Softentertainer.SmartRepo.ViewModels
         {
             this.SendReportCommand = new DelegateCommand(async () =>
             {
-                await pageDialogService.DisplayAlertAsync("報告書", "報告書を送信しました", "OK");
+                var emailMessanger = MessagingPlugin.EmailMessenger;
+                if (emailMessanger.CanSendEmail)
+                {
+                    var email = new EmailMessageBuilder()
+                        .To("test@contoso.com")
+                        .Subject(this.Subject)
+                        .Body(this.Message)
+                        .Build();
+                    emailMessanger.SendEmail(email);
+                }
+                else
+                {
+                    await pageDialogService.DisplayAlertAsync("送信エラー", "メールが設定されていません。", "OK");
+                }
             });
         }
 

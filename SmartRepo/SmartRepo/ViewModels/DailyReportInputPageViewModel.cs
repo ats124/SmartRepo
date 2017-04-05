@@ -53,6 +53,7 @@ namespace Softentertainer.SmartRepo.ViewModels
             {
                 await navigationService.NavigateAsync(nameof(ReportConfirmPage), new NavigationParameters()
                 {
+                    { "Subject", $"日報 ${this.TargetDate:yyyy/MM/dd(ddd)}" },
                     { "Message", $"お疲れ様です。hogehogeです。{Environment.NewLine}{this.Comment}" }
                 });
             });
