@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
@@ -8,10 +8,30 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
+	  <RowDefinition Height="Auto" />
+	  <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <Label Grid.Row="0" Text="{Binding TargetDate, StringFormat='{0:yyyy/MM/dd}'}" />
-    <Editor Grid.Row="1" Text="{Binding Comment}" />
-    <Button Grid.Row="2" Text="送信確認" Command="{Binding ConfirmButton}" />
+	<Grid.ColumnDefinitions>
+	  <ColumnDefinition Width="Auto" />
+	  <ColumnDefinition Width="*" />
+	</Grid.ColumnDefinitions>
+	<!-- 年月日 -->
+	<Label Grid.Column="0" Grid.Row="0" Text="年月日" />
+    <Label Grid.Column="1" Grid.Row="0" Text="{Binding TargetDate, StringFormat='{0:yyyy/MM/dd}'}" />
+	<!-- コメント -->
+    <Label VerticalOptions="Center" Grid.Column="0" Grid.Row="2" Text="コメント" />
+	<Editor VerticalOptions="Center" Grid.Column="1" Grid.Row="2" Text="{Binding Comment}" />
+
+	<!-- 作業開始時刻 -->
+	<Label VerticalOptions="Center" Grid.Column="0" Grid.Row="3" Text="作業開始時刻" />
+	<TimePicker Time="{Binding StartTime}" Format="hh:mm" Grid.Row="3" Grid.Column="1"/>
+	<!-- 作業終了時刻 -->
+	<Label VerticalOptions="Center" Grid.Column="0" Grid.Row="4" Text="作業終了時刻" />
+	<TimePicker Time="{Binding EndTime}" Format="hh:mm" Grid.Row="4" Grid.Column="1"/>
+	<!-- 送信ボタン -->
+    <Button HorizontalOptions="Center" Grid.ColumnSpan="2" Grid.Row="5" Text="送信確認" Command="{Binding ConfirmButton}" />
+
   </Grid>
 </ContentPage>

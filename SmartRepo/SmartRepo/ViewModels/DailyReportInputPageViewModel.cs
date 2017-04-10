@@ -45,6 +45,21 @@ namespace Softentertainer.SmartRepo.ViewModels
             set { SetProperty(ref this.nextSchedule, value); }
         }
 
+		private TimeSpan startTime;
+		public TimeSpan StartTime
+		{
+			get { return this.startTime;}
+			set { SetProperty(ref this.startTime, value);}
+		}
+
+		private TimeSpan endTime;
+		public TimeSpan EndTime
+		{
+			get { return this.endTime;}
+			set { SetProperty(ref this.endTime, value);}
+		}
+
+
         public DelegateCommand ConfirmButton { get; }
 
         public DailyReportInputPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
