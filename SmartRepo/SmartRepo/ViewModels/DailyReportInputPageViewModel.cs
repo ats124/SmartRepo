@@ -8,6 +8,9 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Input;
 namespace Softentertainer.SmartRepo.ViewModels
 {
     using Views;
@@ -17,6 +20,9 @@ namespace Softentertainer.SmartRepo.ViewModels
     /// </summary>
     public class DailyReportInputPageViewModel : BindableBase, INavigationAware
     {
+		/// <summary>
+		/// 選択日付
+		/// </summary>
         private DateTime targetDate;
         public DateTime TargetDate
         {
@@ -24,13 +30,9 @@ namespace Softentertainer.SmartRepo.ViewModels
 			set { SetProperty(ref this.targetDate, value); }
         }
 
-        private string mailAddress;
-        public string MailAddress
-        {
-            get { return this.mailAddress; }
-            set { SetProperty(ref this.mailAddress, value); }
-        }
-
+		/// <summary>
+		/// コメント
+		/// </summary>
         private string comment;
         public string Comment
         {
@@ -38,13 +40,10 @@ namespace Softentertainer.SmartRepo.ViewModels
             set { SetProperty(ref this.comment, value); }
         }
 
-        private string nextSchedule;
-        public string NextSchedule
-        {
-            get { return this.nextSchedule; }
-            set { SetProperty(ref this.nextSchedule, value); }
-        }
 
+		/// <summary>
+		/// 開始時刻
+		/// </summary>
 		private TimeSpan startTime;
 		public TimeSpan StartTime
 		{
@@ -52,6 +51,9 @@ namespace Softentertainer.SmartRepo.ViewModels
 			set { SetProperty(ref this.startTime, value);}
 		}
 
+		/// <summary>
+		/// 終了時刻
+		/// </summary>
 		private TimeSpan endTime;
 		public TimeSpan EndTime
 		{
@@ -59,8 +61,23 @@ namespace Softentertainer.SmartRepo.ViewModels
 			set { SetProperty(ref this.endTime, value);}
 		}
 
+		/// <summary>
+		/// タスク項目リスト
+		/// </summary>
+		/// <value>タスク情報</value>
+		public ObservableCollection<TaskItem> TaskItemList { get; } = new ObservableCollection<TaskItem>(new[] { new TaskItem("item1")});
 
-        public DelegateCommand ConfirmButton { get; }
+		/// <summary>
+		/// 送信確認イベント
+		/// </summary>
+		/// <value>The confirm button.</value>
+		public DelegateCommand ConfirmButton { get; }
+
+		/// <summary>
+		/// タスク項目の削除イベント
+		/// </summary>
+		/// <value>The task delete buton.</value>
+		public ICommand TaskDeleteCommand { get; }
 
         public DailyReportInputPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
@@ -72,6 +89,11 @@ namespace Softentertainer.SmartRepo.ViewModels
                     { "Message", $"お疲れ様です。hogehogeです。{Environment.NewLine}{this.Comment}" }
                 });
             });
+
+			this.TaskDeleteCommand = new DelegateCommand<TaskItem>((param) =>
+			{
+				this.TaskItemList.Remove(param);
+			});
         }
 
         public void OnNavigatedFrom(NavigationParameters parameters)
@@ -82,9 +104,34 @@ namespace Softentertainer.SmartRepo.ViewModels
         {
         }
 
+		/// <summary>
+		/// Ons the navigating to.
+		/// </summary>
+		/// <param name="parameters">Parameters.</param>
         public void OnNavigatingTo(NavigationParameters parameters)
         {
             this.TargetDate = (DateTime)parameters["Date"];
+
+			// 初期化
+			this.StartTime = new TimeSpan(9, 0, 0);
+			this.EndTime = new TimeSpan(18, 0, 0);
         }
+
+		/// <summary>
+		/// タスク情報
+		/// </summary>
+		public class TaskItem :BindableBase
+		{
+			public TaskItem(string task)
+			{
+				Task = task;
+			}
+			string task;
+			public String Task
+			{
+				get { return this.task; }
+				set { SetProperty(ref this.task, value);}
+			}
+		}
     }
 }

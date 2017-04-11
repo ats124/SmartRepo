@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="Softentertainer.SmartRepo.Views.DailyReportInputPage">
-  <Grid>
+             x:Class="Softentertainer.SmartRepo.Views.DailyReportInputPage"
+	         x:Name="page">
+  <Grid Padding="10,30,10,10">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
@@ -20,16 +21,34 @@
 	<!-- 年月日 -->
 	<Label Grid.Column="0" Grid.Row="0" Text="年月日" />
     <Label Grid.Column="1" Grid.Row="0" Text="{Binding TargetDate, StringFormat='{0:yyyy/MM/dd}'}" />
+    <!-- タスク一覧 -->
+	<ListView
+            ItemsSource="{Binding TaskItemList}"
+			Grid.Row="1" Grid.ColumnSpan="2">
+	    <ListView.ItemTemplate>
+	        <DataTemplate>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal">
+						<Label Text="{Binding Task}" VerticalOptions="Center"/>
+						<Button Text="Delete"
+							Command="{Binding BindingContext.TaskDeleteCommand, Source={x:Reference page}}" 
+							CommandParameter="{Binding}"
+							VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+	        </DataTemplate>
+	    </ListView.ItemTemplate>
+	</ListView>
 	<!-- コメント -->
     <Label VerticalOptions="Center" Grid.Column="0" Grid.Row="2" Text="コメント" />
 	<Editor VerticalOptions="Center" Grid.Column="1" Grid.Row="2" Text="{Binding Comment}" />
 
 	<!-- 作業開始時刻 -->
 	<Label VerticalOptions="Center" Grid.Column="0" Grid.Row="3" Text="作業開始時刻" />
-	<TimePicker Time="{Binding StartTime}" Format="hh:mm" Grid.Row="3" Grid.Column="1"/>
+	<TimePicker Time="{Binding StartTime}" Format="HH:mm" Grid.Row="3" Grid.Column="1"/>
 	<!-- 作業終了時刻 -->
 	<Label VerticalOptions="Center" Grid.Column="0" Grid.Row="4" Text="作業終了時刻" />
-	<TimePicker Time="{Binding EndTime}" Format="hh:mm" Grid.Row="4" Grid.Column="1"/>
+	<TimePicker Time="{Binding EndTime}" Format="HH:mm" Grid.Row="4" Grid.Column="1"/>
 	<!-- 送信ボタン -->
     <Button HorizontalOptions="Center" Grid.ColumnSpan="2" Grid.Row="5" Text="送信確認" Command="{Binding ConfirmButton}" />
 
