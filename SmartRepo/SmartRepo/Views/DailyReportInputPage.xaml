@@ -4,27 +4,36 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Softentertainer.SmartRepo.Views.DailyReportInputPage"
-	         x:Name="page">
-  <Grid Padding="10,30,10,10">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-	  <RowDefinition Height="Auto" />
-	  <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-    </Grid.RowDefinitions>
-	<Grid.ColumnDefinitions>
-	  <ColumnDefinition Width="Auto" />
-	  <ColumnDefinition Width="*" />
-	</Grid.ColumnDefinitions>
-	<!-- 年月日 -->
-	<Label Grid.Column="0" Grid.Row="0" Text="年月日" />
-    <Label Grid.Column="1" Grid.Row="0" Text="{Binding TargetDate, StringFormat='{0:yyyy/MM/dd}'}" />
-    <!-- タスク一覧 -->
-	<ListView
-            ItemsSource="{Binding TaskItemList}"
-			Grid.Row="1" Grid.ColumnSpan="2">
+	         x:Name="page"
+	         xmlns:local="clr-namespace:Softentertainer.SmartRepo"
+	         Title="{Binding TargetDate, StringFormat='{0:yyyy/MM/dd}'}">
+	<TableView Intent="Settings" >
+		<TableRoot>
+			<TableSection Title="作業時刻">
+				<ViewCell>
+					<StackLayout Orientation="Horizontal">
+						<!-- 作業開始時刻 -->
+						<Label VerticalOptions="Center" Text="開始時刻" />
+						<TimePicker Time="{Binding StartTime}" Format="HH:mm" HorizontalOptions="FillAndExpand">
+							<TimePicker.Effects>
+								<local:NoBorderEffect />
+							</TimePicker.Effects>
+						</TimePicker>
+					</StackLayout>
+				</ViewCell>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal">
+						<!-- 作業終了時刻 -->
+						<Label VerticalOptions="Center" Text="終了時刻" />
+						<TimePicker Time="{Binding EndTime}" Format="HH:mm"/>
+					</StackLayout>
+				</ViewCell>
+			</TableSection>
+		</TableRoot>
+	</TableView>
+	<!-- タスク一覧 -->
+<!--	<ListView
+            ItemsSource="{Binding TaskItemList}">
 	    <ListView.ItemTemplate>
 	        <DataTemplate>
 				<ViewCell>
@@ -38,19 +47,14 @@
 				</ViewCell>
 	        </DataTemplate>
 	    </ListView.ItemTemplate>
-	</ListView>
+	</ListView>-->
 	<!-- コメント -->
-    <Label VerticalOptions="Center" Grid.Column="0" Grid.Row="2" Text="コメント" />
-	<Editor VerticalOptions="Center" Grid.Column="1" Grid.Row="2" Text="{Binding Comment}" />
+<!--    <Label VerticalOptions="Center" Text="コメント" />
+	<Editor VerticalOptions="Center" Text="{Binding Comment}" />-->
 
-	<!-- 作業開始時刻 -->
-	<Label VerticalOptions="Center" Grid.Column="0" Grid.Row="3" Text="作業開始時刻" />
-	<TimePicker Time="{Binding StartTime}" Format="HH:mm" Grid.Row="3" Grid.Column="1"/>
-	<!-- 作業終了時刻 -->
-	<Label VerticalOptions="Center" Grid.Column="0" Grid.Row="4" Text="作業終了時刻" />
-	<TimePicker Time="{Binding EndTime}" Format="HH:mm" Grid.Row="4" Grid.Column="1"/>
+
+
 	<!-- 送信ボタン -->
-    <Button HorizontalOptions="Center" Grid.ColumnSpan="2" Grid.Row="5" Text="送信確認" Command="{Binding ConfirmButton}" />
+<!--    <Button HorizontalOptions="Center" Text="送信確認" Command="{Binding ConfirmButton}" />-->
 
-  </Grid>
 </ContentPage>
