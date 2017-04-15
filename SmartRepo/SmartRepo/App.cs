@@ -19,7 +19,7 @@ namespace Softentertainer.SmartRepo
             Container.RegisterTypeForNavigation<DailyReportInputPage>();
             Container.RegisterTypeForNavigation<ReportConfirmPage>();
             Container.RegisterTypeForNavigation<WeeklyReportSelectPage>();
-            Container.RegisterTypeForNavigation<SettingPage>();
+            Container.RegisterTypeForNavigation<SettingsPage>();
         }
 
         protected override void OnInitialized()

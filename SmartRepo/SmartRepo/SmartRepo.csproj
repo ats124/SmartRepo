@@ -36,9 +36,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\CollectionExtensions.cs" />
     <Compile Include="Utils\DelegateValueConverter.cs" />
-    <Compile Include="ViewModels\SettingPageViewModel.cs" />
+    <Compile Include="ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\ReportConfirmPageViewModel.cs" />
     <Compile Include="ViewModels\DailyReportSelectPageViewModel.cs" />
@@ -58,8 +60,8 @@
     <Compile Include="Views\DailyReportInputPage.xaml.cs">
       <DependentUpon>DailyReportInputPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingPage.xaml.cs">
-      <DependentUpon>SettingPage.xaml</DependentUpon>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WeeklyReportSelectPage.xaml.cs">
       <DependentUpon>WeeklyReportSelectPage.xaml</DependentUpon>
@@ -124,10 +126,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Forms\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Views\DailyReportSelectPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -153,7 +152,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\SettingPage.xaml">
+    <EmbeddedResource Include="Views\SettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

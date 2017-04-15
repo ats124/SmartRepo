@@ -13,9 +13,9 @@ using Xamarin.Forms.Xaml;
 namespace Softentertainer.SmartRepo.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SettingPage : ContentPage
+    public partial class SettingsPage : ContentPage
     {
-        public SettingPage()
+        public SettingsPage()
         {
             InitializeComponent();
         }

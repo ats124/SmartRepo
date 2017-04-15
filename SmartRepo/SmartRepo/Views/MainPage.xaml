@@ -18,7 +18,7 @@
   </NavigationPage>
   <NavigationPage Title="設定">
     <x:Arguments>
-      <my:SettingPage />
+      <my:SettingsPage />
     </x:Arguments>
   </NavigationPage>
 </TabbedPage>
