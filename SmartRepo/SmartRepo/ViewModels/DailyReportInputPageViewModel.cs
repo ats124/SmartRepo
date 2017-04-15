@@ -61,6 +61,20 @@ namespace Softentertainer.SmartRepo.ViewModels
 			set { SetProperty(ref this.endTime, value);}
 		}
 
+		public TimeSpanItem[] IntervalTimes { get; } = new[]
+		{
+			new TimeSpanItem(TimeSpan.FromHours(0.5)),
+			new TimeSpanItem(TimeSpan.FromHours(1)),
+			new TimeSpanItem(TimeSpan.FromHours(1.5)),
+		};
+
+		private TimeSpanItem intervalTime;
+		public TimeSpanItem IntervalTime
+		{
+			get { return this.intervalTime; }
+			set { SetProperty(ref this.intervalTime, value); }
+		}
+
 		/// <summary>
 		/// タスク項目リスト
 		/// </summary>
@@ -115,7 +129,19 @@ namespace Softentertainer.SmartRepo.ViewModels
 			// 初期化
 			this.StartTime = new TimeSpan(9, 0, 0);
 			this.EndTime = new TimeSpan(18, 0, 0);
+			this.IntervalTime = this.IntervalTimes[1];
         }
+
+		public class TimeSpanItem
+		{
+			public TimeSpan Value { get; set; }
+			public string Text => this.Value.ToString(@"hh\:mm");
+
+			public TimeSpanItem(TimeSpan value)
+			{
+				this.Value = value;
+			}
+		}
 
 		/// <summary>
 		/// タスク情報
