@@ -11,10 +11,10 @@
 		<TableRoot>
 			<TableSection Title="作業時刻">
 				<ViewCell>
-					<StackLayout Orientation="Horizontal">
+					<StackLayout Orientation="Horizontal" Padding="10,0,10,0">
 						<!-- 作業開始時刻 -->
 						<Label VerticalOptions="Center" Text="開始時刻" />
-						<TimePicker Time="{Binding StartTime}" Format="HH:mm" HorizontalOptions="FillAndExpand">
+						<TimePicker Time="{Binding StartTime}" Format="HH:mm" HorizontalOptions="FillAndExpand" >
 							<TimePicker.Effects>
 								<local:NoBorderEffect />
 							</TimePicker.Effects>
@@ -22,36 +22,34 @@
 					</StackLayout>
 				</ViewCell>
 				<ViewCell>
-					<StackLayout Orientation="Horizontal">
+					<StackLayout Orientation="Horizontal" Padding="10,0,10,0">
 						<!-- 作業終了時刻 -->
 						<Label VerticalOptions="Center" Text="終了時刻" />
-						<TimePicker Time="{Binding EndTime}" Format="HH:mm"/>
+						<TimePicker Time="{Binding EndTime}" Format="HH:mm" HorizontalOptions="FillAndExpand">
+							<TimePicker.Effects>
+								<local:NoBorderEffect />
+							</TimePicker.Effects>
+						</TimePicker>
+					</StackLayout>
+				</ViewCell>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="10,0,10,0">
+						<!-- 休憩時間 -->
+						<Label VerticalOptions="Center" Text="休憩時間" />
+						<Picker
+							HorizontalOptions="FillAndExpand"
+							ItemsSource="{Binding IntervalTimes}"
+							ItemDisplayBinding="{Binding Text}"
+							SelectedItem="{Binding IntervalTime}">
+							<Picker.Effects>
+								<local:NoBorderEffect />
+							</Picker.Effects>
+						</Picker>
 					</StackLayout>
 				</ViewCell>
 			</TableSection>
 		</TableRoot>
 	</TableView>
-	<!-- タスク一覧 -->
-<!--	<ListView
-            ItemsSource="{Binding TaskItemList}">
-	    <ListView.ItemTemplate>
-	        <DataTemplate>
-				<ViewCell>
-					<StackLayout Orientation="Horizontal">
-						<Label Text="{Binding Task}" VerticalOptions="Center"/>
-						<Button Text="Delete"
-							Command="{Binding BindingContext.TaskDeleteCommand, Source={x:Reference page}}" 
-							CommandParameter="{Binding}"
-							VerticalOptions="Center"/>
-					</StackLayout>
-				</ViewCell>
-	        </DataTemplate>
-	    </ListView.ItemTemplate>
-	</ListView>-->
-	<!-- コメント -->
-<!--    <Label VerticalOptions="Center" Text="コメント" />
-	<Editor VerticalOptions="Center" Text="{Binding Comment}" />-->
-
 
 
 	<!-- 送信ボタン -->

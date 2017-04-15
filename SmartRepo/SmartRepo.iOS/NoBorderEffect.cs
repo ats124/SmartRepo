@@ -19,6 +19,7 @@ namespace Softentertainer.SmartRepo.iOS
 		{
 			var uiTxtFieald = (UITextField)Control;
 			uiTxtFieald.BorderStyle = UITextBorderStyle.None;
+			uiTxtFieald.TextAlignment = UITextAlignment.Right;
 		}
 
 		protected override void OnDetached()
