@@ -7,52 +7,62 @@
 	         x:Name="page"
 	         xmlns:local="clr-namespace:Softentertainer.SmartRepo"
 	         Title="{Binding TargetDate, StringFormat='{0:yyyy/MM/dd}'}">
-	<TableView Intent="Settings" >
-		<TableRoot>
-			<TableSection Title="作業時刻">
-				<ViewCell>
-					<StackLayout Orientation="Horizontal" Padding="10,0,10,0">
-						<!-- 作業開始時刻 -->
-						<Label VerticalOptions="Center" Text="開始時刻" />
-						<TimePicker Time="{Binding StartTime}" Format="HH:mm" HorizontalOptions="FillAndExpand" >
-							<TimePicker.Effects>
-								<local:NoBorderEffect />
-							</TimePicker.Effects>
-						</TimePicker>
-					</StackLayout>
-				</ViewCell>
-				<ViewCell>
-					<StackLayout Orientation="Horizontal" Padding="10,0,10,0">
-						<!-- 作業終了時刻 -->
-						<Label VerticalOptions="Center" Text="終了時刻" />
-						<TimePicker Time="{Binding EndTime}" Format="HH:mm" HorizontalOptions="FillAndExpand">
-							<TimePicker.Effects>
-								<local:NoBorderEffect />
-							</TimePicker.Effects>
-						</TimePicker>
-					</StackLayout>
-				</ViewCell>
-				<ViewCell>
-					<StackLayout Orientation="Horizontal" Padding="10,0,10,0">
-						<!-- 休憩時間 -->
-						<Label VerticalOptions="Center" Text="休憩時間" />
-						<Picker
-							HorizontalOptions="FillAndExpand"
-							ItemsSource="{Binding IntervalTimes}"
-							ItemDisplayBinding="{Binding Text}"
-							SelectedItem="{Binding IntervalTime}">
-							<Picker.Effects>
-								<local:NoBorderEffect />
-							</Picker.Effects>
-						</Picker>
-					</StackLayout>
-				</ViewCell>
-			</TableSection>
-		</TableRoot>
-	</TableView>
+	<StackLayout Orientation="Vertical"> 
+		<TableView Intent="Settings">
+			<TableRoot>
+				<TableSection Title="作業時刻">
+					<ViewCell>
+						<StackLayout Orientation="Horizontal" Padding="10,0,10,0">
+							<!-- 作業開始時刻 -->
+							<Label VerticalOptions="Center" Text="開始" />
+							<TimePicker Time="{Binding StartTime}" Format="HH:mm" HorizontalOptions="FillAndExpand" >
+								<TimePicker.Effects>
+									<local:NoBorderEffect />
+								</TimePicker.Effects>
+							</TimePicker>
+						</StackLayout>
+					</ViewCell>
+					<ViewCell>
+						<StackLayout Orientation="Horizontal" Padding="10,0,10,0">
+							<!-- 作業終了時刻 -->
+							<Label VerticalOptions="Center" Text="終了" />
+							<TimePicker Time="{Binding EndTime}" Format="HH:mm" HorizontalOptions="FillAndExpand">
+								<TimePicker.Effects>
+									<local:NoBorderEffect />
+								</TimePicker.Effects>
+							</TimePicker>
+						</StackLayout>
+					</ViewCell>
+					<ViewCell>
+						<StackLayout Orientation="Horizontal" Padding="10,0,10,0">
+							<!-- 休憩時間 -->
+							<Label VerticalOptions="Center" Text="休憩" />
+							<Picker
+								HorizontalOptions="FillAndExpand"
+								ItemsSource="{Binding IntervalTimes}"
+								ItemDisplayBinding="{Binding Text}"
+								SelectedItem="{Binding IntervalTime}">
+								<Picker.Effects>
+									<local:NoBorderEffect />
+								</Picker.Effects>
+							</Picker>
+						</StackLayout>
+					</ViewCell>
+				</TableSection>
+			</TableRoot>
+		</TableView>
+		<StackLayout
+			Orientation="Vertical" Padding="10,0,10,10"
+			VerticalOptions="Start">
+			<Label Text="コメント"></Label>
+			<Editor
+				HeightRequest="100"
+				Text="{Binding Comment}">
+			</Editor>
+		</StackLayout>
 
+			<!-- 送信ボタン -->
+	<Button HorizontalOptions="Center" Text="送信確認" Command="{Binding ConfirmButton}" VerticalOptions="End" />
 
-	<!-- 送信ボタン -->
-<!--    <Button HorizontalOptions="Center" Text="送信確認" Command="{Binding ConfirmButton}" />-->
-
+	</StackLayout>
 </ContentPage>
