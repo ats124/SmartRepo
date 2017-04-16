@@ -17,45 +17,59 @@ namespace Softentertainer.SmartRepo.Models
         {
             get
             {
-                var date = this.Data.Date;
+                var date = this.Data.Date.ToDate();
                 return new DateTime(date.Year, date.Month, date.Day);
             }
             set
             {
-                this.Data.Date = new DateTimeOffset(value.Year, value.Month, value.Day, 0, 0, 0, TimeSpan.Zero);
+                this.Data.Date = value.ToIntDate();
             }            
         }
 
-        public TimeSpan? StartTime
+        public TimeSpan StartTime
         {
             get
             {
-                return this.Data.StartTime.HasValue
-                    ? TimeSpan.FromMinutes(this.Data.StartTime.Value)
-                    : (TimeSpan?)null;
+                return TimeSpan.FromMinutes(this.Data.StartTime);
             }
             set
             {
-                this.Data.StartTime = value.HasValue
-                    ? (int)value.Value.TotalMinutes
-                    : (int?)null;
+                this.Data.StartTime = (int)value.TotalMinutes;
             }
         }
 
-        public TimeSpan? EndTime
+        public TimeSpan EndTime
         {
             get
             {
-                return this.Data.EndTime.HasValue
-                    ? TimeSpan.FromMinutes(this.Data.EndTime.Value)
-                    : (TimeSpan?)null;
+                return TimeSpan.FromMinutes(this.Data.EndTime);
             }
             set
             {
-                this.Data.EndTime = value.HasValue
-                    ? (int)value.Value.TotalMinutes
-                    : (int?)null;
+                this.Data.EndTime = (int)value.TotalMinutes;
             }
+        }
+
+        public TimeSpan IntervalTime
+        {
+            get
+            {
+                return TimeSpan.FromMinutes(this.Data.IntervalTime);
+            }
+            set
+            {
+                this.Data.IntervalTime = (int)value.TotalMinutes;
+            }
+        }
+
+        private DailyReport(DailyReportData data)
+        {
+            this.Data = data;
+        }
+
+        public static DailyReport CreateNew()
+        {
+            return new DailyReport(new DailyReportData());
         }
 
         public string Comment
@@ -70,10 +84,22 @@ namespace Softentertainer.SmartRepo.Models
             {
                 return DailyReportData.GetByBettweenDate(
                     realm,
-                    new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero),
-                    new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0, TimeSpan.Zero))
-                    .Select(x => new DateTime(x.Date.Year, x.Date.Month, x.Date.Day))
+                    new DateTime(year, month, 1).ToIntDate(),
+                    new DateTime(year, month, DateTime.DaysInMonth(year, month)).ToIntDate())
+                    .Select(x => x.Date.ToDate())
                     .ToArray();
+            }
+        }
+
+        public void Save()
+        {
+            using (var realm = Realm.GetInstance())
+            {
+                using (var tran = realm.BeginWrite())
+                {
+                    realm.Add(this.Data, update: true);
+                    tran.Commit();
+                }
             }
         }
     }

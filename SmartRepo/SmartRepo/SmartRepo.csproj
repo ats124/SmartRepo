@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Data\DailyReportData.cs" />
+    <Compile Include="Data\DateTimeExtension.cs" />
     <Compile Include="Models\DailyReport.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

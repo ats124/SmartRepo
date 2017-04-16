@@ -14,6 +14,7 @@ using System.Windows.Input;
 namespace Softentertainer.SmartRepo.ViewModels
 {
     using Views;
+    using Models;
 
     /// <summary>
     /// 報告書入力画面のビューモデル
@@ -97,6 +98,13 @@ namespace Softentertainer.SmartRepo.ViewModels
         {
             this.ConfirmButton = new DelegateCommand(async () =>
             {
+                var report = DailyReport.CreateNew();
+                report.Date = this.TargetDate;
+                report.StartTime = this.StartTime;
+                report.EndTime = this.EndTime;
+                report.IntervalTime = this.IntervalTime.Value;
+                report.Comment = this.Comment;
+                report.Save();
                 await navigationService.NavigateAsync(nameof(ReportConfirmPage), new NavigationParameters()
                 {
                     { "Subject", $"日報 ${this.TargetDate:yyyy/MM/dd(ddd)}" },
