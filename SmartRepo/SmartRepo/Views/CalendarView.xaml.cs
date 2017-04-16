@@ -6,11 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Softentertainer.SmartRepo.Views
 {
     using Utils;
 
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CalendarView : ContentView
     {
         public struct YearMonth

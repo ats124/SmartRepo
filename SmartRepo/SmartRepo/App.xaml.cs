@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Prism.Unity;
 using Xamarin.Forms;
-using Prism.Unity;
 
 namespace Softentertainer.SmartRepo
 {
     using Views;
 
-    public class App : PrismApplication
+    public partial class App : PrismApplication
     {
+        public App(IPlatformInitializer initializer = null) : base(initializer) { }
+
+        protected override void OnInitialized()
+        {
+            InitializeComponent();
+            NavigationService.NavigateAsync(nameof(MainPage));
+        }
+
         protected override void RegisterTypes()
         {
             Container.RegisterTypeForNavigation<MainPage>();
@@ -20,11 +23,6 @@ namespace Softentertainer.SmartRepo
             Container.RegisterTypeForNavigation<ReportConfirmPage>();
             Container.RegisterTypeForNavigation<WeeklyReportSelectPage>();
             Container.RegisterTypeForNavigation<SettingsPage>();
-        }
-
-        protected override void OnInitialized()
-        {
-            NavigationService.NavigateAsync(nameof(MainPage));
         }
     }
 }
