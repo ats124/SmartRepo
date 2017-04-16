@@ -36,7 +36,7 @@
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
       <Button Grid.Row="0" HorizontalOptions="Start" Text="&lt;&lt;" Style="{StaticResource LinkButtonStyle}" Clicked="ViewMonthPreviousButton_Clicked" />
-      <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding ViewMonth, Source={x:Reference Name=RootElement}, StringFormat='{0:yyyy/MM}'}}" />
+      <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding ViewMonth, Source={x:Reference Name=RootElement}, StringFormat='{0}'}" />
       <Button Grid.Row="0" HorizontalOptions="End" Text="&gt;&gt;" Style="{StaticResource LinkButtonStyle}" Clicked="ViewMonthNextButton_Clicked" />
       <BoxView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CalendarBorderColor}" />
       <Grid x:Name="CalendarDaysGrid" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CalendarBorderColor}" 

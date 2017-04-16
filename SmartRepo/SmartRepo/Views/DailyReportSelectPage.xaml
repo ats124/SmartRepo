@@ -9,7 +9,7 @@
   <ContentPage.Resources>
     <ResourceDictionary>
       <DataTemplate x:Key="CalendarItemTemplate">
-        <Label>Test</Label>
+        <Label Text="{Binding}" />
       </DataTemplate>
     </ResourceDictionary>
   </ContentPage.Resources>
@@ -18,6 +18,11 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <my:CalendarView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CalendarItemTemplate="{StaticResource CalendarItemTemplate}" CalendarItemCommand="{Binding CalendarItemCommand}" />
+    <my:CalendarView Grid.Row="1" 
+                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+                     ViewMonth="{Binding ViewMonth}" 
+                     CalendarItemsSource="{Binding ReportExists}"
+                     CalendarItemTemplate="{StaticResource CalendarItemTemplate}" 
+                     CalendarItemCommand="{Binding CalendarItemCommand}" />
   </Grid>
 </ContentPage>

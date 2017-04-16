@@ -13,6 +13,39 @@ namespace Softentertainer.SmartRepo.Views
 
     public partial class CalendarView : ContentView
     {
+        public struct YearMonth
+        {
+            /// <summary>
+            /// 西暦1年1月からの経過月
+            /// </summary>
+            private int _monthMount;
+            public int Year => 1 + _monthMount / 12;
+            public int Month => _monthMount % 12 + 1;
+
+            public YearMonth(int year, int month)
+            {
+                _monthMount = (year - 1) * 12 + month - 1;
+            }
+
+            public YearMonth AddMonths(int value)
+            {
+                var newYearMonth = this;
+                newYearMonth._monthMount += value;
+                return newYearMonth;
+            }
+
+            public DateTime ToDateTime() => new DateTime(this.Year, this.Month, 1);
+
+            public static YearMonth FromDateTime(DateTime date) => new YearMonth(date.Year, date.Month);
+
+            public static YearMonth ThisMonth => FromDateTime(DateTime.Today);
+
+            public override string ToString()
+            {
+                return $"{this.Year}/{this.Month:D2}";
+            }
+        }
+
         public static readonly BindableProperty CalendarItemsSourceProperty =
             BindableProperty.Create(nameof(CalendarItemsSource), typeof(IDictionary<DateTime, object>), typeof(CalendarView),
                 propertyChanged: (bindable, oldValue, newValue) => ((CalendarView)bindable).RefreshCalendarCells(isRefreshSource: true));
@@ -22,15 +55,16 @@ namespace Softentertainer.SmartRepo.Views
                 propertyChanged: (bindable, oldValue, newValue) => ((CalendarView)bindable).RefreshCalendarCells(isRefreshTemplate: true));
 
         public static readonly BindableProperty ViewMonthProperty =
-            BindableProperty.Create(nameof(ViewMonth), typeof(DateTime), typeof(CalendarView), DateTime.MinValue,
-                defaultValueCreator: bindable =>
-                {
-                    var today = DateTime.Today;
-                    return new DateTime(today.Year, today.Month, 1);
-                },
+            BindableProperty.Create(nameof(ViewMonth), typeof(YearMonth), typeof(CalendarView),
+                defaultValue: YearMonth.ThisMonth,
+                defaultBindingMode: BindingMode.TwoWay, 
+                defaultValueCreator: bindable => YearMonth.ThisMonth,
                 propertyChanged: (bindable, oldValue, newValue) => ((CalendarView)bindable).RefreshCalendarCells(isRefreshDay: true));
 
         public static readonly BindableProperty CalendarItemCommandProperty = BindableProperty.Create(nameof(CalendarItemCommand), typeof(ICommand), typeof(CalendarView), null);
+
+        private static readonly BindableProperty ItemDateProperty =
+            BindableProperty.CreateAttached("ItemDate", typeof(DateTime?), typeof(CalendarView), (DateTime?)null);
 
         /// <summary>
         /// カレンダーのデータを取得または設定します。
@@ -53,10 +87,10 @@ namespace Softentertainer.SmartRepo.Views
         /// <summary>
         /// カレンダー表示する年月を取得または設定します。
         /// </summary>
-        public DateTime ViewMonth
+        public YearMonth ViewMonth
         {
-			get { return (DateTime)this.GetValue(ViewMonthProperty); }
-			set { this.SetValue(ViewMonthProperty, new DateTime(value.Year, value.Month, 1)); }
+			get { return (YearMonth)this.GetValue(ViewMonthProperty); }
+			set { this.SetValue(ViewMonthProperty, value); }
         }
 
         /// <summary>
@@ -202,7 +236,8 @@ namespace Softentertainer.SmartRepo.Views
 
         private void CalendarDayGridCell_Tapped(object sender, EventArgs e)
         {
-            var date = (DateTime)((Grid)sender).BindingContext;
+            // 日付のラベル部分のバインディングコンテキスト
+            var date = (DateTime)((Grid)sender).Children.OfType<Label>().First().BindingContext;
             if (this.CalendarItemCommand?.CanExecute(date) ?? false)
             {
                 this.CalendarItemCommand?.Execute(date);
@@ -223,8 +258,12 @@ namespace Softentertainer.SmartRepo.Views
         {
             // カレンダーの先頭日付(日曜日から始める)を取得する
             var viewMonth = this.ViewMonth;
-            var firstCalendarDay = viewMonth.AddDays(-(int)viewMonth.DayOfWeek);
+            var viewMonthDateTime = viewMonth.ToDateTime();
+            var firstCalendarDay = viewMonthDateTime.AddDays(-(int)viewMonthDateTime.DayOfWeek);
             var today = DateTime.Today;
+
+            var calendarItemTemplate = this.CalendarItemTemplate;
+            var calendarItemSource = this.CalendarItemsSource;
 
             this.dayElements.ForEach((dayElement, index) =>
             {
@@ -233,7 +272,7 @@ namespace Softentertainer.SmartRepo.Views
                 // 日付
                 if (isRefreshDay)
                 {
-                    dayElement.Item1.BindingContext = date;
+                    dayElement.Item2.BindingContext = date;
                 }
 
                 // コンテンツのテンプレート
@@ -243,7 +282,7 @@ namespace Softentertainer.SmartRepo.Views
                 }
 
                 // データバインド
-                if (isRefreshSource || isRefreshDay)
+                if (isRefreshTemplate || isRefreshSource || isRefreshDay)
                 {
                     object data = null;
                     this.CalendarItemsSource?.TryGetValue(date, out data);
