@@ -11,6 +11,7 @@ using Plugin.Messaging;
 
 namespace Softentertainer.SmartRepo.ViewModels
 {
+    using Models;
     using Views;
 
     /// <summary>
@@ -32,25 +33,23 @@ namespace Softentertainer.SmartRepo.ViewModels
             set { SetProperty(ref this.message, value); }
         }
 
+        private DailyReport DailyReport { get; set; }
+
         public DelegateCommand SendReportCommand { get; }
 
         public ReportConfirmPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
             this.SendReportCommand = new DelegateCommand(async () =>
             {
-                var emailMessanger = MessagingPlugin.EmailMessenger;
-                if (emailMessanger.CanSendEmail)
+                var emailTask = CrossMessaging.Current.EmailMessenger;
+                if (emailTask.CanSendEmail)
                 {
-                    var email = new EmailMessageBuilder()
-                        .To("test@contoso.com")
-                        .Subject(this.Subject)
-                        .Body(this.Message)
-                        .Build();
-                    emailMessanger.SendEmail(email);
+                    var email = this.DailyReport.CreateEmail(emailTask, Settings.ToName, Settings.ToMailAddress);
+                    emailTask.SendEmail(email);
                 }
                 else
                 {
-                    await pageDialogService.DisplayAlertAsync("送信エラー", "メールが設定されていません。", "OK");
+                    await pageDialogService.DisplayAlertAsync("送信エラー", "メールが送信できません。", "OK");
                 }
             });
         }
@@ -61,7 +60,9 @@ namespace Softentertainer.SmartRepo.ViewModels
 
         public void OnNavigatedTo(NavigationParameters parameters)
         {
-            this.Message = (string)parameters["Message"];
+            this.DailyReport = (DailyReport)parameters["DailyReport"];
+            this.Subject = this.DailyReport.CreateMailTitle();
+            this.Message = this.DailyReport.CreateMailBody();
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)

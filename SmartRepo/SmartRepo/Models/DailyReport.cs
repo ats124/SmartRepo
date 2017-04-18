@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Realms;
+using Plugin.Messaging;
 
 namespace Softentertainer.SmartRepo.Models
 {
@@ -69,6 +70,52 @@ namespace Softentertainer.SmartRepo.Models
                     tran.Commit();
                 }
             }
+        }
+
+        public string CreateMailBody() => CreateMailBody(null);
+
+        public string CreateMailTitle()
+        {
+            return $"{this.Date:yyyy\\年MM\\月dd\\日} の日報";
+        }
+
+        private string CreateMailBody(string newLine)
+        {
+            var comment = this.Comment;
+            if (newLine == null)
+            {
+                newLine = newLine ?? Environment.NewLine;
+            }
+            else
+            {
+                comment = this.Comment.Replace(Environment.NewLine, newLine);
+            }
+            var builder = new StringBuilder()
+                .Append($"作業時間:{this.StartTime:hh\\:mm}～{this.EndTime:hh\\:mm}").Append(newLine)
+                .Append($"休憩時間:{this.IntervalTime:hh\\:mm}").Append(newLine)
+                .Append($"コメント:").Append(newLine)
+                .Append(comment);
+
+            return builder.ToString();
+        }
+
+        public IEmailMessage CreateEmail(IEmailTask emailTask, string toName, string toEmailAddress)
+        {
+            var builder = new EmailMessageBuilder()
+                .Subject(CreateMailTitle())
+                .Body(CreateMailBody("\r\n"));
+            if (!string.IsNullOrEmpty(toEmailAddress))
+            {
+                if (!string.IsNullOrEmpty(toName))
+                {
+                    builder.To($"{Settings.ToName}<{Settings.ToMailAddress}>");
+                }
+                else
+                {
+                    builder.To(toEmailAddress);
+                }
+            }
+            return builder.Build();
         }
     }
 }
