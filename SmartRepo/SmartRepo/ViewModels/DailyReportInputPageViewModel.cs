@@ -98,7 +98,7 @@ namespace Softentertainer.SmartRepo.ViewModels
         {
             this.ConfirmButton = new DelegateCommand(async () =>
             {
-                var report = DailyReport.CreateNew();
+                var report = new DailyReport();
                 report.Date = this.TargetDate;
                 report.StartTime = this.StartTime;
                 report.EndTime = this.EndTime;
@@ -134,10 +134,29 @@ namespace Softentertainer.SmartRepo.ViewModels
         {
             this.TargetDate = (DateTime)parameters["Date"];
 
-			// 初期化
-			this.StartTime = new TimeSpan(9, 0, 0);
-			this.EndTime = new TimeSpan(18, 0, 0);
-			this.IntervalTime = this.IntervalTimes[1];
+            var report = DailyReport.GetReport(this.TargetDate);
+            if (report != null)
+            {
+                this.StartTime = report.StartTime;
+                this.EndTime = report.EndTime;
+                var intervalTime = this.IntervalTimes.FirstOrDefault(x => x.Value == report.IntervalTime);
+                if (intervalTime != null)
+                {
+                    this.IntervalTime = intervalTime;
+                }
+                else
+                {
+                    this.IntervalTime = this.IntervalTimes[1];
+                }
+                this.Comment = report.Comment;
+            }
+            else
+            {
+                // 初期化
+                this.StartTime = new TimeSpan(9, 0, 0);
+                this.EndTime = new TimeSpan(18, 0, 0);
+                this.IntervalTime = this.IntervalTimes[1];
+            }
         }
 
 		public class TimeSpanItem

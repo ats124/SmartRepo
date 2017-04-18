@@ -11,71 +11,31 @@ namespace Softentertainer.SmartRepo.Models
 
     class DailyReport
     {
-        private DailyReportData Data { get; set; }
+        public DateTime Date { get; set; }
 
-        public DateTime Date
-        {
-            get
-            {
-                var date = this.Data.Date.ToDate();
-                return new DateTime(date.Year, date.Month, date.Day);
-            }
-            set
-            {
-                this.Data.Date = value.ToIntDate();
-            }            
-        }
+        public TimeSpan StartTime { get; set; }
 
-        public TimeSpan StartTime
-        {
-            get
-            {
-                return TimeSpan.FromMinutes(this.Data.StartTime);
-            }
-            set
-            {
-                this.Data.StartTime = (int)value.TotalMinutes;
-            }
-        }
+        public TimeSpan EndTime { get; set; }
 
-        public TimeSpan EndTime
-        {
-            get
-            {
-                return TimeSpan.FromMinutes(this.Data.EndTime);
-            }
-            set
-            {
-                this.Data.EndTime = (int)value.TotalMinutes;
-            }
-        }
+        public TimeSpan IntervalTime { get; set; }
 
-        public TimeSpan IntervalTime
+        public string Comment { get; set; }
+
+        public static DailyReport GetReport(DateTime date)
         {
-            get
+            using (var realm = Realm.GetInstance())
             {
-                return TimeSpan.FromMinutes(this.Data.IntervalTime);
+                var data = DailyReportData.GetByDate(realm, date.ToIntDate());
+                if (data == null) return null;
+                return new DailyReport()
+                {
+                    Date = data.Date.ToDate(),
+                    StartTime = TimeSpan.FromMinutes(data.StartTime),
+                    EndTime = TimeSpan.FromMinutes(data.EndTime),
+                    IntervalTime = TimeSpan.FromMinutes(data.IntervalTime),
+                    Comment = data.Comment,
+                };
             }
-            set
-            {
-                this.Data.IntervalTime = (int)value.TotalMinutes;
-            }
-        }
-
-        private DailyReport(DailyReportData data)
-        {
-            this.Data = data;
-        }
-
-        public static DailyReport CreateNew()
-        {
-            return new DailyReport(new DailyReportData());
-        }
-
-        public string Comment
-        {
-            get { return this.Data.Comment; }
-            set { this.Data.Comment = value; }
         }
 
         public static DateTime[] GetReportExistsDateInMonth(int year, int month)
@@ -97,7 +57,15 @@ namespace Softentertainer.SmartRepo.Models
             {
                 using (var tran = realm.BeginWrite())
                 {
-                    realm.Add(this.Data, update: true);
+                    var data = new DailyReportData()
+                    {
+                        Date = this.Date.ToIntDate(),
+                        StartTime = (int)this.StartTime.TotalMinutes,
+                        EndTime = (int)this.EndTime.TotalMinutes,
+                        IntervalTime = (int)this.IntervalTime.TotalMinutes,
+                        Comment = this.Comment,
+                    };
+                    realm.Add(data, update: true);
                     tran.Commit();
                 }
             }

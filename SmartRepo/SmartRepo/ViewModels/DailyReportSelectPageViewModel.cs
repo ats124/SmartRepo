@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Prism;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -26,6 +27,7 @@ namespace Softentertainer.SmartRepo.ViewModels
         }
 
         private IDictionary<DateTime, object> reportExists;
+
         public IDictionary<DateTime, object> ReportExists
         {
             get { return this.reportExists; }
@@ -45,13 +47,14 @@ namespace Softentertainer.SmartRepo.ViewModels
                         { "Date", date }
                     });
             });
-            this.LoadReportExists();
+            LoadReportExists();
         }
 
         private void LoadReportExists()
         {
-            //this.ReportExists = new Dictionary<DateTime, object>() { { new DateTime(2017, 4, 17), "有" } };
-            this.ReportExists = Models.DailyReport.GetReportExistsDateInMonth(this.viewMonth.Year, this.viewMonth.Month).ToDictionary(x => x, x => (object)"有");
+            this.ReportExists = Models.DailyReport
+                .GetReportExistsDateInMonth(this.viewMonth.Year, this.viewMonth.Month)
+                .ToDictionary(x => x, x => (object)true);
         }
     }
 }

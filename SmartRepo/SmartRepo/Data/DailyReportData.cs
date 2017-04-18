@@ -17,7 +17,7 @@ namespace Softentertainer.SmartRepo.Data
 
         public static DailyReportData GetByDate(Realm realm, int date)
         {
-            return realm.All<DailyReportData>().FirstOrDefault(x => x.Date == date);
+            return realm.All<DailyReportData>().Where(x => x.Date == date).FirstOrDefault();
         }
 
         public static DailyReportData[] GetByBettweenDate(Realm realm, int start, int end)

@@ -4,12 +4,23 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:my="clr-namespace:Softentertainer.SmartRepo.Views"
+             xmlns:myutils="clr-namespace:Softentertainer.SmartRepo.Utils"
              x:Class="Softentertainer.SmartRepo.Views.DailyReportSelectPage"
              Title="日報選択">
   <ContentPage.Resources>
     <ResourceDictionary>
       <DataTemplate x:Key="CalendarItemTemplate">
-        <Label Text="{Binding}" />
+        <ContentView HorizontalOptions="Center" VerticalOptions="Center">
+          <ContentView.Triggers>
+            <DataTrigger TargetType="ContentView" Binding="{Binding}" Value="True">
+              <Setter Property="Content">
+                <Setter.Value>
+                  <Image Source="{myutils:ImageResource Softentertainer.SmartRepo.Resources.file.png}" />
+                </Setter.Value>
+              </Setter>
+            </DataTrigger>
+          </ContentView.Triggers>
+        </ContentView>
       </DataTemplate>
     </ResourceDictionary>
   </ContentPage.Resources>
