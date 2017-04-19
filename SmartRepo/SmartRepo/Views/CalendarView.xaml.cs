@@ -111,7 +111,7 @@ namespace Softentertainer.SmartRepo.Views
         private readonly Color todayBackgroundColor;
         private readonly string[] dayOfWeekStrings;
 
-        private readonly List<Tuple<Grid, Label, ContentView>> dayElements;
+        private readonly List<Tuple<Label, Label, ContentView>> dayElements;
 
         public CalendarView()
         {
@@ -193,7 +193,7 @@ namespace Softentertainer.SmartRepo.Views
             gr.Tapped += CalendarDayGridCell_Tapped;
 
             // 日付グリッド内に日付ラベル
-            this.dayElements = new List<Tuple<Grid, Label, ContentView>>();
+            this.dayElements = new List<Tuple<Label, Label, ContentView>>();
             Enumerable.Range(0, 6).ForEach(row =>
                 Enumerable.Range(0, 7).ForEach(col =>
                 {
@@ -208,7 +208,6 @@ namespace Softentertainer.SmartRepo.Views
                         },
                     };
                     grid.SetBinding(Grid.BackgroundColorProperty, new Binding(".", mode: BindingMode.OneWay, converter: calendarDayToBackgroundColor));
-                    grid.GestureRecognizers.Add(gr);
                     Grid.SetRow(grid, row + 1);
                     Grid.SetColumn(grid, col);                    
                     CalendarDaysGrid.Children.Add(grid);
@@ -230,7 +229,15 @@ namespace Softentertainer.SmartRepo.Views
                     Grid.SetRow(content, 1);
                     grid.Children.Add(content);
 
-                    this.dayElements.Add(Tuple.Create(grid, label, content));
+                    // タップを認識するためのラベル
+                    var tapLabel = new Label();
+                    tapLabel.HorizontalOptions = LayoutOptions.Fill;
+                    tapLabel.VerticalOptions = LayoutOptions.Fill;                    
+                    tapLabel.GestureRecognizers.Add(gr);
+                    Grid.SetRowSpan(tapLabel, 2);
+                    grid.Children.Add(tapLabel);
+
+                    this.dayElements.Add(Tuple.Create(tapLabel, label, content));
                 }));
 
             RefreshCalendarCells(true, true, true);
@@ -239,7 +246,7 @@ namespace Softentertainer.SmartRepo.Views
         private void CalendarDayGridCell_Tapped(object sender, EventArgs e)
         {
             // 日付のラベル部分のバインディングコンテキスト
-            var date = (DateTime)((Grid)sender).Children.OfType<Label>().First().BindingContext;
+            var date = (DateTime)((Label)sender).BindingContext;
             if (this.CalendarItemCommand?.CanExecute(date) ?? false)
             {
                 this.CalendarItemCommand?.Execute(date);
@@ -274,6 +281,7 @@ namespace Softentertainer.SmartRepo.Views
                 // 日付
                 if (isRefreshDay)
                 {
+                    dayElement.Item1.BindingContext = date;
                     dayElement.Item2.BindingContext = date;
                 }
 
