@@ -21,9 +21,14 @@ namespace Softentertainer.SmartRepo.ViewModels
     /// </summary>
     public class DailyReportInputPageViewModel : BindableBase, INavigationAware
     {
-		/// <summary>
-		/// 選択日付
-		/// </summary>
+        /// <summary>
+        /// 前画面の日報選択ビューモデル
+        /// </summary>
+        private DailyReportSelectPageViewModel DailyReportSelectPageViewModel { get; set; }
+
+        /// <summary>
+        /// 選択日付
+        /// </summary>
         private DateTime targetDate;
         public DateTime TargetDate
         {
@@ -40,7 +45,6 @@ namespace Softentertainer.SmartRepo.ViewModels
             get { return this.comment; }
             set { SetProperty(ref this.comment, value); }
         }
-
 
 		/// <summary>
 		/// 開始時刻
@@ -105,6 +109,7 @@ namespace Softentertainer.SmartRepo.ViewModels
                 report.IntervalTime = this.IntervalTime.Value;
                 report.Comment = this.Comment;
                 report.Save();
+                this.DailyReportSelectPageViewModel.SetReportExists(this.TargetDate);
                 await navigationService.NavigateAsync(nameof(ReportConfirmPage), new NavigationParameters()
                 {
                     { "DailyReport", report },
@@ -132,6 +137,7 @@ namespace Softentertainer.SmartRepo.ViewModels
         public void OnNavigatingTo(NavigationParameters parameters)
         {
             this.TargetDate = (DateTime)parameters["Date"];
+            this.DailyReportSelectPageViewModel = (DailyReportSelectPageViewModel)parameters["DailyReportSelectPageViewModel"];
 
             var report = DailyReport.GetReport(this.TargetDate);
             if (report != null)

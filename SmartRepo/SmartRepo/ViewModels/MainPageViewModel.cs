@@ -15,7 +15,7 @@ namespace Softentertainer.SmartRepo.ViewModels
     /// <summary>
     /// 報告書選択画面のビューモデル
     /// </summary>
-    public class MainPageViewModel : BindableBase, INavigationAware
+    public class MainPageViewModel : BindableBase
     {
         public DelegateCommand<string> NavigationCommand { get; }
 
@@ -25,18 +25,6 @@ namespace Softentertainer.SmartRepo.ViewModels
             {
                 await navigationService.NavigateAsync(param);
             });
-        }
-
-        public void OnNavigatedFrom(NavigationParameters parameters)
-        {
-        }
-
-        public void OnNavigatedTo(NavigationParameters parameters)
-        {
-        }
-
-        public void OnNavigatingTo(NavigationParameters parameters)
-        {
         }
     }
 }

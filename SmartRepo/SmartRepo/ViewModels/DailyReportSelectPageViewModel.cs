@@ -44,7 +44,8 @@ namespace Softentertainer.SmartRepo.ViewModels
                     nameof(DailyReportInputPage), 
                     new NavigationParameters()
                     {
-                        { "Date", date }
+                        { "Date", date },
+                        { "DailyReportSelectPageViewModel", this }
                     });
             });
             LoadReportExists();
@@ -55,6 +56,19 @@ namespace Softentertainer.SmartRepo.ViewModels
             this.ReportExists = Models.DailyReport
                 .GetReportExistsDateInMonth(this.viewMonth.Year, this.viewMonth.Month)
                 .ToDictionary(x => x, x => (object)true);
+        }
+
+        /// <summary>
+        /// 指定した日に日報があるとマークします。
+        /// </summary>
+        /// <remarks>日報編集画面で日報生成時にセットする</remarks>
+        public void SetReportExists(DateTime date)
+        {
+            var newReportExists = this.reportExists != null
+                ? new Dictionary<DateTime, object>(this.reportExists)
+                : new Dictionary<DateTime, object>();
+            newReportExists[date] = true;
+            this.ReportExists = newReportExists;
         }
     }
 }
